@@ -5,6 +5,7 @@ var bdiam;
 var fuseEndX;
 var fuseEndY;
 var gameState;
+var newState;
 
 function setup() 
 {
@@ -114,8 +115,23 @@ function draw()
 function keyPressed()
 {
 
+    if (gameState == 0){
+        newState = 1;
+    }
     
+    if (gameState == 1){
+        newState = 2;
+    }
     
+    if (gameState == 2){
+        newState = 0;
+    }
+    
+    if (gameState == 3){
+        newState = 0;
+    }
+        
+    gameState = newState;
 }
 
 
