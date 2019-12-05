@@ -4,6 +4,7 @@ var bcenterY;
 var bdiam;
 var fuseEndX;
 var fuseEndY;
+var gameState;
 
 function setup() 
 {
@@ -18,6 +19,7 @@ function setup()
     fuseEndX = bcenterX + 20;
     fuseEndY = bcenterY - bdiam/2 - 30;
     
+    gameState = 0;
 }
 
 
@@ -29,9 +31,12 @@ function draw()
     bcenterX = width/2;
     bcenterY = height/2;
     
+    
     //wobble the bomb
-    bcenterX += random(-10,10);
-    bcenterY += random(-10,10);
+    if (gameState == 1){
+        bcenterX += random(-10,10);
+        bcenterY += random(-10,10);
+    }
     
     fuseEndX = bcenterX + 20;
     fuseEndY = bcenterY - bdiam/2 - 30;
@@ -63,29 +68,53 @@ function draw()
         bcenterX + 50, bcenterY - 30
     );
     
-    //draw the flame 
-    fill(255,255,0);
-    noStroke();
-    beginShape();
-        vertex(fuseEndX, fuseEndY);
-        vertex(fuseEndX + 20, fuseEndY - 20);
-        vertex(fuseEndX + 20, fuseEndY - 50);
-        vertex(fuseEndX - 10, fuseEndY - 30);
-    endShape(CLOSE);
+    
+    
+    
+    //draw the flame
+    
+    if (gameState == 1){
+        fill(255,255,0);
+        noStroke();
+        beginShape();
+            vertex(fuseEndX, fuseEndY);
+            vertex(fuseEndX + 20, fuseEndY - 20);
+            vertex(fuseEndX + 20, fuseEndY - 50);
+            vertex(fuseEndX - 10, fuseEndY - 30);
+        endShape(CLOSE);
+    }
     
     fill(255);
     
     //Draw game text
-    text("Press any key to start", 20, 50);
-    text("Game over", 20, height/2);  
-    text("You won !", width/2, height/2);  
-    text("Press a key to diffuse the bomb", 20, height - 50);
+    if(gameState == 0){
+        text("Press any key to start", 20, 50);
+    }
+    
+    if (gameState ==2) {
+        text("Game over", 20, height/2); 
+    }
+    
+     
+    if (gameState ==3) {
+        text("You won !", width/2, height/2); 
+    }
+     
+    
+    
+    
+    
+    if (gameState ==1){
+        text("Press a key to diffuse the bomb", 20, height - 50);
+    }
+    
     
 }
 
 function keyPressed()
 {
 
+    
     
 }
 
