@@ -6,6 +6,8 @@ var fuseEndX;
 var fuseEndY;
 var gameState;
 var newState;
+var secretKey;
+var countDown;
 
 function setup() 
 {
@@ -21,6 +23,8 @@ function setup()
     fuseEndY = bcenterY - bdiam/2 - 30;
     
     gameState = 0;
+    
+    secretKey = 'F';
 }
 
 
@@ -37,6 +41,13 @@ function draw()
     if (gameState == 1){
         bcenterX += random(-10,10);
         bcenterY += random(-10,10);
+        
+        countDown = countDown-1;
+        
+        if (countDown ==0)
+            {
+                gameState = 2;
+            }
     }
     
     fuseEndX = bcenterX + 20;
@@ -92,6 +103,11 @@ function draw()
         text("Press any key to start", 20, 50);
     }
     
+    if (gameState ==1){
+        text("Press a key to diffuse the bomb", 20, height - 50);
+        text("Countdown: " + countDown, 20, 50);
+    }
+    
     if (gameState ==2) {
         text("Game over", 20, height/2); 
     }
@@ -100,27 +116,32 @@ function draw()
     if (gameState ==3) {
         text("You won !", width/2, height/2); 
     }
-     
-    
-    
-    
-    
-    if (gameState ==1){
-        text("Press a key to diffuse the bomb", 20, height - 50);
-    }
     
     
 }
 
 function keyPressed()
 {
+    
+    console.log(key);
 
-    if (gameState == 0){
+    if (gameState == 0)
+    {
         newState = 1;
+        countDown = 300;
     }
     
-    if (gameState == 1){
-        newState = 2;
+    if (gameState == 1)
+    {
+        
+        if(key== secretKey)
+            {
+                newState = 3;
+            }
+        if(key != secretKey)
+            {
+                newState =2;
+            }
     }
     
     if (gameState == 2){
