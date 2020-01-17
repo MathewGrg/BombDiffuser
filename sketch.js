@@ -8,6 +8,7 @@ var gameState;
 var newState;
 var secretKey;
 var countDown;
+var hotKey;
 
 function setup() 
 {
@@ -25,6 +26,7 @@ function setup()
     gameState = 0;
     
     secretKey = 'F';
+    hotKey = 'G';
 }
 
 
@@ -42,7 +44,7 @@ function draw()
         bcenterX += random(-10,10);
         bcenterY += random(-10,10);
         
-        countDown = countDown-1;
+        countDown--;
         
         if (countDown ==0)
             {
@@ -109,12 +111,15 @@ function draw()
     }
     
     if (gameState ==2) {
-        text("Game over", 20, height/2); 
+        background(0);
+        text("Game over", 150, height/2); 
     }
     
      
     if (gameState ==3) {
-        text("You won !", width/2, height/2); 
+        background(100);
+        text("Succesfully diffused.", width/4, height/3); 
+        text("You've won!", width/3, height/2);
     }
     
     
@@ -138,7 +143,15 @@ function keyPressed()
             {
                 newState = 3;
             }
-        if(key != secretKey)
+        else if (key == hotKey)
+            {
+                countDown +=50;
+            }
+        else if (random() > 0.5)
+            {
+                 
+            }
+        else
             {
                 newState =2;
             }
